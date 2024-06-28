@@ -1,0 +1,29 @@
+{
+  "name": "root",
+  "workspaceFolder": "/usr/src",
+  "dockerFile": "../Dockerfile",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/usr/src,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.aws,target=/root/.aws,type=bind,consistency=cached",
+  ],
+  "shutdownAction": "none",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot-cath",
+        "github.copilot",
+        "eamodio.gitlens",
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-python.vscode-pylance"
+      ],
+      "settings": {
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "editor.formatOnSave": true,
+        "python.formatting.provider": "black"
+      }
+    }
+  },
+  "postCreateCommand": "pip install -r requirements.txt"
+}

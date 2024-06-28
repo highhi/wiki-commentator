@@ -1,0 +1,9 @@
+langchain
+langchain-aws
+faiss-cpu
+boto3
+langchain_community
+awscli
+beautifulsoup4
+pylint
+black
