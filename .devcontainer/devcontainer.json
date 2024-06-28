@@ -1,12 +1,9 @@
 {
-  "name": "root",
-  "workspaceFolder": "/usr/src",
-  "dockerFile": "../Dockerfile",
+  "name": "wiki-commentator",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
   "mounts": [
-    "source=${localWorkspaceFolder},target=/usr/src,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.aws,target=/root/.aws,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached"
   ],
-  "shutdownAction": "none",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -25,5 +22,5 @@
       }
     }
   },
-  "postCreateCommand": "pip install -r requirements.txt"
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y git-secrets && pip install -r requirements.txt"
 }

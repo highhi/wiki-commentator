@@ -1,4 +1,5 @@
 import os
+import sys
 from bs4 import BeautifulSoup
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_aws.chat_models import ChatBedrock
@@ -104,13 +105,32 @@ def main():
     vector_store = create_or_load_vector_store(processed_chunks, embeddings)
     qa_chain = setup_qa_chain(chat_model, vector_store)
 
-    """ここにユーザー入力を入れる"""
-    question = " "
+    try:
+        while True:
+            question = input("質問を入力してください（終了するには 'q' を入力）")
 
-    response = qa_chain.invoke({"input": question})
+            if question.lower() == "q":
+                print("終了します。")
+                break
 
-    print("Answer:")
-    print(response["answer"])
+            if question.strip() == "":
+                print("質問が入力されていません。もう一度入力してください。")
+                continue
+
+            print("回答を生成中...", end='', flush=True)
+
+            response = qa_chain.invoke({"input": question})
+
+            print("\r" + " "*20 + "\r", end='')
+
+            print("\n回答:")
+            print(response["answer"])
+
+            print("\n")
+    except KeyboardInterrupt:
+        print("\nプログラムが中断されました。終了します。")
+    finally:
+        sys.exit(0)
 
 
 if __name__ == "__main__":
